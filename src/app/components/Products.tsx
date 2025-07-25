@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { ShoppingBag, ArrowLeft, OctagonXIcon } from "lucide-react";
+import Tooltip from "./Tooltip";
 
 interface Product {
   id: string;
@@ -11,7 +13,12 @@ interface Product {
   image: string;
 }
 
-const Products = () => {
+interface ProductsProps {
+  query: string;
+  onClearQuery: () => void;
+}
+
+const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -28,30 +35,57 @@ const Products = () => {
       });
   }, []);
 
+  const filtered = query
+    ? products.filter((p) => p.name.toLowerCase().includes(query))
+    : products;
+
   if (loading) return <p>Loading products...</p>;
 
   return (
-    <section className="max-w-5xl p-10 mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      {products.map((product) => (
-        <div
-          key={product.id}
-          className="border border-purple-50 rounded p-4 shadow hover:shadow-lg transition hover:border-purple-900"
-        >
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full h-48 object-cover rounded mb-2"
-          />
-          <h2 className="text-xl text-gray-700 font-semibold">
-            {product.name}
-          </h2>
-
-          <div className="flex flex-row justify-between">
-            <p className="text-gray-600">{product.size}</p>
-            <p className="text-purple-500 font-bold">{product.price} kr</p>
-          </div>
+    <section className="max-w-5xl p-10 mx-auto px-4">
+      {filtered.length === 0 && (
+        <div className="flex flex-row gap-1 justify-center items-center ">
+          <OctagonXIcon className="w-5 h-5 text-red-600" />
+          <p className="text-red-600">products not found</p>
         </div>
-      ))}
+      )}
+      {query && (
+        <button
+          onClick={onClearQuery}
+          className="mb-6 flex items-center gap-2 text-purple-400 font-bold hover:text-purple-900"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          View all products
+        </button>
+      )}
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {filtered.map((product) => (
+          <div
+            key={product.id}
+            className="border border-purple-50 rounded p-4 shadow hover:shadow-lg transition hover:border-purple-900"
+          >
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-full h-48 object-cover rounded mb-2"
+            />
+            <h2 className="text-xl text-gray-700 font-semibold">
+              {product.name}
+            </h2>
+
+            <div className="flex flex-row justify-between">
+              <p className="text-purple-400 font-bold">{product.price} kr</p>
+
+              <Tooltip text="Add to cart">
+                <button>
+                  <ShoppingBag className="w-6 h-6 text-purple-400 hover:text-purple-700" />
+                </button>
+              </Tooltip>
+            </div>
+          </div>
+        ))}
+      </div>
     </section>
   );
 };

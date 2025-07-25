@@ -1,15 +1,14 @@
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Products from "./components/Products";
-import Searchbar from "./components/Searchbar";
+import ProductsPage from "./components/ProductsPage";
+
 
 export default function Home() {
   return (
     <div>
       <Header />
-      <Searchbar />
-      <Products />
+      <ProductsPage />
       <Footer />
     </div>
   );

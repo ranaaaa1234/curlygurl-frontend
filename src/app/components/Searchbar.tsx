@@ -4,7 +4,11 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Search } from "lucide-react";
 import Tooltip from "./Tooltip";
 
-const Searchbar: React.FC = () => {
+interface SearchbarProps {
+  onSearch: (query: string) => void;
+}
+
+const Searchbar: React.FC<SearchbarProps> = ({ onSearch }) => {
   const [query, setQuery] = useState("");
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -14,6 +18,7 @@ const Searchbar: React.FC = () => {
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (!query.trim()) return;
+    onSearch(query.trim().toLowerCase());
   }
 
   return (
