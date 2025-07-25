@@ -1,0 +1,42 @@
+"use client";
+
+import React, { useState, ChangeEvent, FormEvent } from "react";
+import { Search } from "lucide-react";
+import Tooltip from "./Tooltip";
+
+const Searchbar: React.FC = () => {
+  const [query, setQuery] = useState("");
+
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setQuery(e.target.value);
+  }
+
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    if (!query.trim()) return;
+  }
+
+  return (
+    <div className="flex items-center justify-center flex-col p-10">
+      <h2 className="text-4xl mb-10 text-purple-400 font-bold">
+        What are you looking for today?
+      </h2>
+      <form onSubmit={handleSubmit} className="flex items-center gap-4">
+        <input
+          type="text"
+          value={query}
+          onChange={handleChange}
+          placeholder="Search..."
+          className="w-64 border-b-2 border-gray-600 focus:border-purple-400 p-2 bg-transparent outline-none"
+        />
+        <Tooltip text="Search">
+          <button type="submit" className="text-purple-400 hover:text-purple-900">
+            <Search className="w-6 h-6" />
+          </button>
+        </Tooltip>
+      </form>
+    </div>
+  );
+};
+
+export default Searchbar;
