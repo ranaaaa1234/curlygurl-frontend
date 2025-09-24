@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { ShoppingBag, ArrowLeft, OctagonXIcon } from "lucide-react";
-import Tooltip from "./Tooltip";
+import Tooltip from "../Tooltip";
+import { useCart } from "../cart/CartContext";
 
 interface Product {
   id: string;
@@ -21,6 +22,7 @@ interface ProductsProps {
 const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     fetch("http://localhost:4000/products")
@@ -78,7 +80,7 @@ const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
               <p className="text-purple-400 font-bold">{product.price} kr</p>
 
               <Tooltip text="Add to cart">
-                <button>
+                <button onClick={() => addToCart(product)}>
                   <ShoppingBag className="w-6 h-6 text-purple-400 hover:text-purple-700" />
                 </button>
               </Tooltip>

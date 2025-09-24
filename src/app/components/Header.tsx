@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { ShoppingBag } from "lucide-react";
 import Tooltip from "./Tooltip";
 
+
 const Header: React.FC = () => {
   const router = useRouter();
 
@@ -20,6 +21,7 @@ const Header: React.FC = () => {
       <Tooltip text="View your cart">
         <button
           aria-label="View cart"
+          onClick={() => router.push("/cart")}
           className="text-purple-400 hover:text-purple-700"
         >
           <ShoppingBag className="w-8 h-8" />

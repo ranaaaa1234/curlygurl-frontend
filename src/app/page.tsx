@@ -1,7 +1,7 @@
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import ProductsPage from "./components/ProductsPage";
+import ProductsPage from "./components/products/ProductsPage";
 
 
 export default function Home() {
