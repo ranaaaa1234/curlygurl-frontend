@@ -45,6 +45,9 @@ const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
 
   return (
     <section className="max-w-5xl p-10 mx-auto px-4">
+      <h2 className="text-4xl mb-10 text-center text-purple-900 font-semibold">
+        Explore our products
+      </h2>
       {filtered.length === 0 && (
         <div className="flex flex-row gap-1 justify-center items-center ">
           <OctagonXIcon className="w-5 h-5 text-red-600" />

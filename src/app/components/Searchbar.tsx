@@ -22,7 +22,7 @@ const Searchbar: React.FC<SearchbarProps> = ({ onSearch }) => {
   }
 
   return (
-    <div className="flex items-center justify-center flex-col p-10">
+    <div className="flex items-center bg-purple-100 justify-center flex-col p-10">
       <h2 className="text-4xl mb-10 text-purple-900 font-semibold">
         What are you looking for today?
       </h2>
