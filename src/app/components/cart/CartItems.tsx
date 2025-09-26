@@ -3,11 +3,14 @@
 import { useCart } from "./CartContext";
 import { useRouter } from "next/navigation";
 import { FrownIcon, Plus, Minus, X } from "lucide-react";
-import Tooltip from "../Tooltip";
+import ConfirmModal from "../confirmModal/DeleteConfirmModal";
+import { useState } from "react";
 
 const CartItems = () => {
   const { cart, removeFromCart, clearCart, updateQuantity } = useCart();
   const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState<string | null>(null);
 
   const total = cart.reduce((sum, p) => sum + p.price * p.quantity, 0);
 
@@ -26,6 +29,27 @@ const CartItems = () => {
     }
   };
 
+  const handleDeleteClick = (id: string) => {
+    setItemToDelete(id);
+    setIsModalOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (itemToDelete) {
+      removeFromCart(itemToDelete);
+    }
+    setIsModalOpen(false);
+    setItemToDelete(null);
+  };
+
+  const updateQuantityConfirm = (id: string, quantity: number) => {
+    if (quantity === 0) {
+      setItemToDelete(id);
+      setIsModalOpen(true);
+    } else {
+      updateQuantity(id, quantity);
+    }
+  };
 
   return (
     <section className="max-w-2xl mx-auto p-6">
@@ -73,26 +97,39 @@ const CartItems = () => {
 
                 <div className="flex flex-col items-end gap-3">
                   <button
-                    onClick={() => removeFromCart(item.id)}
+                    onClick={() => handleDeleteClick(item.id)}
                     className="text-red-600 hover:text-red-800"
                   >
                     <X className="w-5 h-5" />
                   </button>
+                  <ConfirmModal
+                    isOpen={isModalOpen}
+                    onConfirm={confirmDelete}
+                    onCancel={() => setIsModalOpen(false)}
+                    message="Are you sure you want to remove this item?"
+                  />
 
                   <div className="flex border rounded">
-                    <button className="px-2 py-1 text-purple-600 hover:bg-purple-100"
-                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                    <button
+                      className="px-2 py-1 text-purple-600 hover:bg-purple-100"
+                      onClick={() =>
+                        updateQuantityConfirm(item.id, item.quantity - 1)
+                      }
                     >
                       <Minus className="w-5 h-5" />
                     </button>
-                    <span className="flex w-8 justify-center items-center">{item.quantity}</span>
-                    <button className="px-2 py-1 text-purple-600 hover:bg-purple-100"
-                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                    <span className="flex w-8 justify-center items-center">
+                      {item.quantity}
+                    </span>
+                    <button
+                      className="px-2 py-1 text-purple-600 hover:bg-purple-100"
+                      onClick={() =>
+                        updateQuantityConfirm(item.id, item.quantity + 1)
+                      }
                     >
                       <Plus className="w-5 h-5" />
                     </button>
                   </div>
-
                 </div>
               </li>
             ))}
