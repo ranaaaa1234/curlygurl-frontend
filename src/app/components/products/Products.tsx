@@ -12,6 +12,7 @@ interface Product {
   description: string;
   size: string;
   image: string;
+  quantity: number;
 }
 
 interface ProductsProps {
@@ -78,8 +79,11 @@ const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
             <h2 className="text-xl text-gray-700 font-semibold">
               {product.name}
             </h2>
+            <p className="font-semibold text-sm text-gray-500">
+              {product.size}
+            </p>
 
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-row justify-between mt-1">
               <p className="text-purple-400 font-bold">{product.price} kr</p>
 
               <Tooltip text="Add to cart">
