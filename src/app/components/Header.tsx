@@ -13,7 +13,7 @@ const Header: React.FC = () => {
   return (
     <header className="p-10 flex items-center justify-between bg-white shadow">
       <Link href="/">
-        <h1 className="text-3xl font-bold text-purple-400 cursor-pointer">
+        <h1 className="text-3xl font-bold text-purple-400 cursor-pointer hover:text-purple-900">
           Curly Gurl
         </h1>
       </Link>
