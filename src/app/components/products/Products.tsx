@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { ShoppingBag, ArrowLeft, OctagonXIcon } from "lucide-react";
+import { ShoppingCart, ArrowLeft, OctagonXIcon } from "lucide-react";
 import Tooltip from "../Tooltip";
 import { useCart } from "../cart/CartContext";
 
@@ -88,7 +88,7 @@ const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
 
               <Tooltip text="Add to cart">
                 <button onClick={() => addToCart(product)}>
-                  <ShoppingBag className="w-6 h-6 text-purple-400 hover:text-purple-700" />
+                  <ShoppingCart className="w-6 h-6 text-purple-400 hover:text-purple-700" />
                 </button>
               </Tooltip>
             </div>

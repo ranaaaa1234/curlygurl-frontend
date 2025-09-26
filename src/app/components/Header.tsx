@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import Tooltip from "./Tooltip";
 
 
@@ -24,7 +24,7 @@ const Header: React.FC = () => {
           onClick={() => router.push("/cart")}
           className="text-purple-400 hover:text-purple-700"
         >
-          <ShoppingBag className="w-8 h-8" />
+          <ShoppingCart className="w-8 h-8" />
         </button>
       </Tooltip>
     </header>

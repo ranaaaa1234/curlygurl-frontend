@@ -3,12 +3,13 @@
 import { useCart } from "./CartContext";
 import { useRouter } from "next/navigation";
 import { FrownIcon, Plus, Minus, X } from "lucide-react";
+import Tooltip from "../Tooltip";
 
 const CartItems = () => {
   const { cart, removeFromCart, clearCart, updateQuantity } = useCart();
   const router = useRouter();
 
-  const total = cart.reduce((sum, p) => sum + p.price, 0);
+  const total = cart.reduce((sum, p) => sum + p.price * p.quantity, 0);
 
   const handleOrder = async () => {
     const res = await fetch("http://localhost:4000/orders", {
@@ -31,7 +32,7 @@ const CartItems = () => {
       <h2 className="text-2xl font-bold mb-6 text-purple-900">Your Cart</h2>
 
       {cart.length === 0 ? (
-        <div className="bg-purple-100 p-6 rounded-lg text-center">
+        <div className="border p-4 rounded-lg text-center">
           <div className="flex justify-center items-center gap-2 mb-3">
             <FrownIcon className="w-6 h-6 text-red-600" />
             <p className="text-red-600 font-semibold">
@@ -51,7 +52,7 @@ const CartItems = () => {
             {cart.map((item) => (
               <li
                 key={item.id}
-                className="flex items-center justify-between border rounded-lg p-4 bg-white shadow-sm"
+                className="flex items-center justify-between border rounded-lg p-4 bg-white shadow-sm hover:border-purple-900"
               >
                 <div className="flex items-center gap-4">
                   <img
@@ -84,7 +85,7 @@ const CartItems = () => {
                     >
                       <Minus className="w-5 h-5" />
                     </button>
-                    <span className="px-3">{item.quantity}</span>
+                    <span className="flex w-8 justify-center items-center">{item.quantity}</span>
                     <button className="px-2 py-1 text-purple-600 hover:bg-purple-100"
                     onClick={() => updateQuantity(item.id, item.quantity + 1)}
                     >
@@ -97,14 +98,13 @@ const CartItems = () => {
             ))}
           </ul>
 
-          {/* Total */}
           <div className="mt-6 text-right">
-            <p className="text-xl font-semibold text-purple-900">
+            <p className="text-xl font-semibold text-purple-400">
               Total: {total} kr
             </p>
             <button
               onClick={handleOrder}
-              className="mt-4 bg-purple-900 text-white px-6 py-2 rounded-lg shadow hover:bg-purple-700 transition"
+              className="mt-4 bg-purple-400 text-white px-4 py-2 rounded-lg shadow hover:bg-purple-900 transition"
             >
               Place Order
             </button>
