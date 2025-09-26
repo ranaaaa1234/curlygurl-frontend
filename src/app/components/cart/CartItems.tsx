@@ -32,7 +32,7 @@ const CartItems = () => {
       <h2 className="text-2xl font-bold mb-6 text-purple-900">Your Cart</h2>
 
       {cart.length === 0 ? (
-        <div className="border p-4 rounded-lg text-center">
+        <div className="border p-4 rounded-lg text-center bg-purple-50">
           <div className="flex justify-center items-center gap-2 mb-3">
             <FrownIcon className="w-6 h-6 text-red-600" />
             <p className="text-red-600 font-semibold">
@@ -40,7 +40,7 @@ const CartItems = () => {
             </p>
           </div>
           <button
-            className="font-bold underline text-purple-900 hover:text-purple-700"
+            className="font-bold underline text-purple-400 hover:text-purple-900"
             onClick={() => router.push("/")}
           >
             Go shopping

@@ -22,7 +22,7 @@ const Searchbar: React.FC<SearchbarProps> = ({ onSearch }) => {
   }
 
   return (
-    <div className="flex items-center bg-purple-100 justify-center flex-col p-10">
+    <div className="flex items-center bg-purple-50 justify-center flex-col p-10">
       <h2 className="text-4xl mb-10 text-purple-900 font-semibold">
         What are you looking for today?
       </h2>
@@ -32,7 +32,7 @@ const Searchbar: React.FC<SearchbarProps> = ({ onSearch }) => {
           value={query}
           onChange={handleChange}
           placeholder="Search..."
-          className="w-64 border-b-2 border-gray-600 focus:border-purple-400 p-2 bg-transparent outline-none"
+          className="w-64 border-b-2 border-purple-900 focus:border-purple-400 p-2 bg-transparent outline-none"
         />
         <Tooltip text="Search">
           <button type="submit" className="text-purple-400 hover:text-purple-900">
