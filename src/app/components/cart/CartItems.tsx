@@ -2,7 +2,7 @@
 
 import { useCart } from "./CartContext";
 import { useRouter } from "next/navigation";
-import { FrownIcon, Plus, Minus, X } from "lucide-react";
+import { FrownIcon, Plus, Minus, X, ArrowLeft } from "lucide-react";
 import ConfirmModal from "../confirmModal/DeleteConfirmModal";
 import { useState } from "react";
 
@@ -53,10 +53,10 @@ const CartItems = () => {
 
   return (
     <section className="max-w-2xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-6 text-purple-900">Your Cart</h2>
+      <h2 className="text-2xl font-bold mb-3 text-purple-900">Your Cart</h2>
 
       {cart.length === 0 ? (
-        <div className="border p-4 rounded-lg text-center bg-purple-50">
+        <div className="flex flex-col border p-4 rounded-lg text-center bg-purple-50">
           <div className="flex justify-center items-center gap-2 mb-3">
             <FrownIcon className="w-6 h-6 text-red-600" />
             <p className="text-red-600 font-semibold">
@@ -64,14 +64,22 @@ const CartItems = () => {
             </p>
           </div>
           <button
-            className="font-bold underline text-purple-400 hover:text-purple-900"
+            className="flex flex-row gap-1 items-center justify-center font-bold text-purple-400 hover:text-purple-900"
             onClick={() => router.push("/")}
           >
+            <ArrowLeft className="w-5 h-5" />
             Go shopping
           </button>
         </div>
       ) : (
         <>
+          <button
+            className="flex flex-row gap-1 items-center font-bold text-purple-400 hover:text-purple-900 mb-3"
+            onClick={() => router.push("/")}
+          >
+            <ArrowLeft className="w-5 h-5" />
+            Continue shopping
+          </button>
           <ul className="space-y-4">
             {cart.map((item) => (
               <li
@@ -80,7 +88,7 @@ const CartItems = () => {
               >
                 <div className="flex items-center gap-4">
                   <img
-                    src={item.image}
+                    src={`http://localhost:4000${item.image}`}
                     alt={item.name}
                     className="w-12 h-12 object-cover rounded"
                   />

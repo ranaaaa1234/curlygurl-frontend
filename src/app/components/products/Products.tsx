@@ -52,13 +52,13 @@ const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
       {filtered.length === 0 && (
         <div className="flex flex-row gap-1 justify-center items-center ">
           <OctagonXIcon className="w-5 h-5 text-red-600" />
-          <p className="text-red-600">products not found</p>
+          <p className="text-red-600 font-bold">product not found</p>
         </div>
       )}
       {query && (
         <button
           onClick={onClearQuery}
-          className="mb-6 flex items-center gap-2 text-purple-400 font-bold hover:text-purple-900"
+          className="mb-6 flex items-center gap-1 text-purple-400 font-bold hover:text-purple-900"
         >
           <ArrowLeft className="w-5 h-5" />
           View all products
@@ -72,9 +72,9 @@ const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
             className="border border-purple-50 rounded p-4 shadow hover:shadow-lg transition hover:border-purple-900"
           >
             <img
-              src={product.image}
+              src={`http://localhost:4000${product.image}`}
               alt={product.name}
-              className="w-full h-48 object-cover rounded mb-2"
+              className="w-full h-48 object-cover rounded mb-6 mx-auto"
             />
             <h2 className="text-xl text-gray-700 font-semibold">
               {product.name}
@@ -87,7 +87,7 @@ const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
               <p className="text-purple-400 font-bold">{product.price} kr</p>
 
               <Tooltip text="Add to cart">
-                <button onClick={() => addToCart(product)}>
+                <button onClick={() => addToCart(product )}>
                   <ShoppingCart className="w-6 h-6 text-purple-400 hover:text-purple-700" />
                 </button>
               </Tooltip>
