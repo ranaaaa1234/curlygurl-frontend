@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Package, UserCheck, LogOut } from "lucide-react";
+import { UserCheck, LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface UserMenuProps {
@@ -46,15 +46,6 @@ const UserMenu: React.FC<UserMenuProps> = ({ user, onLogout }) => {
               >
                 Profile
                 <UserCheck className="inline w-5 h-5 ml-1" />
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => router.push("/userOrders")}
-                className="flex w-full justify-center items-center px-4 py-2 font-semibold hover:bg-purple-50 text-purple-900"
-              >
-                Orders
-                <Package className="inline w-5 h-5 ml-1" />
               </button>
             </li>
             <li>
