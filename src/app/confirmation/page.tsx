@@ -1,4 +1,5 @@
 import { Package } from "lucide-react";
+import Link from "next/link";
 
 export default function ConfirmationPage() {
   return (
@@ -17,6 +18,14 @@ export default function ConfirmationPage() {
             Delivery 2-5 days
           </p>
         </div>
+      </div>
+
+      <div className="flex justify-center mt-5"> 
+      <Link href="/">
+        <h1 className="text-xl underline font-bold text-purple-400 cursor-pointer hover:text-purple-900">
+          Curly Gurl
+        </h1>
+      </Link>
       </div>
     </main>
   );
