@@ -1,5 +1,7 @@
 "use client";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { ArrowLeft, FrownIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface OrderItem {
   name: string;
@@ -16,6 +18,7 @@ interface Order {
 
 export default function UserOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
+  const router = useRouter();
 
   const fetchOrders = () => {
     const token = localStorage.getItem("token")?.trim();
@@ -38,7 +41,21 @@ export default function UserOrdersPage() {
       <h1 className="text-3xl font-bold text-purple-900 mb-6">My orders</h1>
 
       {orders.length === 0 ? (
-        <p>You have no orders</p>
+         <div className="flex flex-col border p-4 rounded-lg text-center bg-purple-50">
+          <div className="flex justify-center items-center gap-2 mb-3">
+            <FrownIcon className="w-6 h-6 text-red-600" />
+            <p className="text-red-600 font-semibold">
+              You have no orders yet
+            </p>
+          </div>
+          <button
+            className="flex flex-row gap-1 items-center justify-center font-bold text-purple-400 hover:text-purple-900"
+            onClick={() => router.push("/")}
+          >
+            <ArrowLeft className="w-5 h-5" />
+            Go shopping
+          </button>
+        </div>
       ) : (
         orders.map((order) => (
           <div
