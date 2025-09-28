@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ShoppingCart, User, LogOut, UserCheck } from "lucide-react";
+import { ShoppingCart, User, LogOut, UserCheck, Link } from "lucide-react";
 import Tooltip from "./Tooltip";
 import { useCart } from "../components/cart/CartContext";
 
@@ -55,17 +55,23 @@ const Header: React.FC = () => {
       >
         CurlyGurl
       </h1>
+      <button
+        onClick={() => router.push("/userOrders")}
+        className="text-lg text-purple-400 hover:underline"
+      >
+        My Orders
+      </button>
       <div className="flex items-center gap-6 relative">
         {user ? (
           <div className="flex flex-row items-center gap-4">
             <p className="text-purple-400 font-bold text-lg">{user.email}</p>
             <Tooltip text="Log out">
-            <button
-              onClick={handleLogout}
-              className="text-purple-400 hover:text-purple-900 transition"
-            >
-              <UserCheck className="w-9 h-9" />
-            </button>
+              <button
+                onClick={handleLogout}
+                className="text-purple-400 hover:text-purple-900 transition"
+              >
+                <UserCheck className="w-9 h-9" />
+              </button>
             </Tooltip>
           </div>
         ) : (

@@ -15,11 +15,19 @@ const CartItems = () => {
   const total = cart.reduce((sum, p) => sum + p.price * p.quantity, 0);
 
   const handleOrder = async () => {
+    const token = localStorage.getItem("token")?.trim();
+
     const res = await fetch("http://localhost:4000/orders", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
       body: JSON.stringify({ items: cart }),
     });
+
+    const data = await res.json();
+    console.log("Backend response:", data);
 
     if (res.ok) {
       clearCart();
