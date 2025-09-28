@@ -2,9 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ShoppingCart, User, LogOut, UserCheck, Link } from "lucide-react";
+import {
+  ShoppingCart,
+  User,
+} from "lucide-react";
 import Tooltip from "./Tooltip";
 import { useCart } from "../components/cart/CartContext";
+import UserMenu from "./UserMenu";
 
 interface User {
   id: number;
@@ -53,39 +57,25 @@ const Header: React.FC = () => {
         className="text-4xl font-bold text-purple-400 cursor-pointer hover:text-purple-900"
         onClick={() => router.push("/")}
       >
-        CurlyGurl
+        Curly Gurl
       </h1>
-      <button
-        onClick={() => router.push("/userOrders")}
-        className="text-lg text-purple-400 hover:underline"
-      >
-        My Orders
-      </button>
+
       <div className="flex items-center gap-6 relative">
         {user ? (
-          <div className="flex flex-row items-center gap-4">
-            <p className="text-purple-400 font-bold text-lg">{user.email}</p>
-            <Tooltip text="Log out">
-              <button
-                onClick={handleLogout}
-                className="text-purple-400 hover:text-purple-900 transition"
-              >
-                <UserCheck className="w-9 h-9" />
-              </button>
-            </Tooltip>
+          <div className="flex items-center gap-10">
+            <UserMenu user={user} onLogout={handleLogout} />
           </div>
         ) : (
           <Tooltip text="Log in or register">
             <button
               aria-label="User account"
               onClick={() => router.push("/user")}
-              className="text-purple-400 hover:text-purple-900 "
+              className="text-purple-400 hover:text-purple-900"
             >
               <User className="w-9 h-9" />
             </button>
           </Tooltip>
         )}
-
         <Tooltip text="View your cart">
           <button
             aria-label="View cart"
