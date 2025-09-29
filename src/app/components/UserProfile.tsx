@@ -29,14 +29,12 @@ const UserProfile = () => {
           <div>
             <User className="w-60 h-60 text-purple-400" />
           </div>
-          <div className="flex flex-col mt-5 w-80 items-center justify-center text-xl text-purple-900">
-            <p className="mb-2">
-              <span className="font-semibold">Name:</span> {user.name}
-            </p>
-            <p>
-              <span className="font-semibold">Email:</span> {user.email}
-            </p>
-            <div className="text-red-600 items-center mt-20">
+          <div className="flex flex-col mt-5 w-80 text-xl">
+            <p className="font-semibold">Name:</p>
+            <p className="p-1 mb-4 w-full">{user.name}</p>
+            <p className="font-semibold">Email:</p>
+            <p className="p-1 mb-4 w-full">{user.email}</p>
+            <div className="mt-4 text-xl text-red-600">
               <LogOutBtn className="font-semibold hover:underline" />
               <LogOut className="inline w-6 h-6 ml-1" />
             </div>
