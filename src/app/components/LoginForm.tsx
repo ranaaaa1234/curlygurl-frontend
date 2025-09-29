@@ -22,11 +22,12 @@ export default function LoginForm() {
 
       if (res.ok) {
         // Decode token or get user info from backend response
-        const user = { id: data.id, name: data.name, email };
+        const user = data.user;
+        console.log("Saving user:", user);
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("token", data.token);
 
-        window.dispatchEvent(new Event("storage")); 
+        window.dispatchEvent(new Event("storage"));
         router.push("/");
       } else {
         setMessage(data.message || "Login failed");
