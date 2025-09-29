@@ -2,10 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  ShoppingCart,
-  User,
-} from "lucide-react";
+import { ShoppingCart, User } from "lucide-react";
 import Tooltip from "./Tooltip";
 import { useCart } from "../components/cart/CartContext";
 import UserMenu from "./UserMenu";
@@ -44,13 +41,6 @@ const Header: React.FC = () => {
     return () => window.removeEventListener("storage", handleStorage);
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    setUser(null);
-    router.push("/");
-  };
-
   return (
     <header className="p-10 px-10 flex items-center justify-between border-b">
       <h1
@@ -63,7 +53,8 @@ const Header: React.FC = () => {
       <div className="flex items-center gap-6 relative">
         {user ? (
           <div className="flex items-center gap-10">
-            <UserMenu user={user} onLogout={handleLogout} />
+            <UserMenu user={user} onLogout={() => setUser(null)}
+            />
           </div>
         ) : (
           <Tooltip text="Log in or register">

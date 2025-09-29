@@ -1,12 +1,10 @@
 "use client";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import UserProfile from "../components/UserProfile";
 import UserOrdersPage from "../components/UserOrders";
 
 export default function UserPage() {
   const [view, setView] = useState<"profile" | "orders">("profile");
-  const router = useRouter();
 
   const toggleView = () => {
     setView(view === "profile" ? "orders" : "profile");

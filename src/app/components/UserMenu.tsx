@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { UserCheck, LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
+import LogOutBtn from "./LogOutBtn";
 
 interface UserMenuProps {
   user: { id: number; name: string; email: string } | null;
@@ -49,11 +50,11 @@ const UserMenu: React.FC<UserMenuProps> = ({ user, onLogout }) => {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0  w-40 bg-white border rounded-lg shadow-lg z-50">
+        <div className="absolute right-0  w-40 bg-white border rounded shadow-lg z-50">
           <ul>
             <li>
               <button
-                onClick={() => router.push("/userprofile")}
+                onClick={() => router.push("/userPage")}
                 className="flex w-full justify-center items-center px-4 py-2 font-semibold hover:bg-purple-50 text-purple-900"
               >
                 Profile
@@ -61,13 +62,12 @@ const UserMenu: React.FC<UserMenuProps> = ({ user, onLogout }) => {
               </button>
             </li>
             <li>
-              <button
-                onClick={onLogout}
-                className="flex w-full justify-center items-center px-4 py-2 font-semibold hover:bg-red-50 text-red-600"
+              <div 
+                className="flex w-full justify-center items-center px-4 py-2 font-semibold cursor-pointer rounded hover:bg-red-50"
               >
-                Log out
-                <LogOut className="inline w-5 h-5 ml-1" />
-              </button>
+                <LogOutBtn />
+                <LogOut className="inline w-5 h-5 ml-1 text-red-600" />
+              </div>
             </li>
           </ul>
         </div>

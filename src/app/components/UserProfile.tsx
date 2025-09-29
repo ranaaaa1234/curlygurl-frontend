@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LogOut, User } from "lucide-react";
+import LogOutBtn from "./LogOutBtn";
 
 interface User {
   id: number;
@@ -34,10 +35,10 @@ const UserProfile = () => {
             <p>
               <span className="font-semibold">Email:</span> {user.email}
             </p>
-            <button className="flex justify-center items-center mx-auto mt-20 font-semibold text-red-600 hover:underline">
-              Log out
-              <LogOut className="inline w-5 h-5 ml-1" />
-            </button>
+            <div className="text-red-600 items-center mt-20">
+              <LogOutBtn className="font-semibold hover:underline" />
+              <LogOut className="inline w-6 h-6 ml-1" />
+            </div>
           </div>
         </div>
       )}
