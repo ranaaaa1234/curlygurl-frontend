@@ -1,15 +1,47 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { OctagonAlert } from "lucide-react";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [message, setMessage] = useState("");
   const router = useRouter();
 
+  const validate = () => {
+    let valid = true;
+
+    // Email validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if (!email) {
+      setEmailError("Email is required");
+      valid = false;
+    } else if (!emailPattern.test(email)) {
+      setEmailError("Enter a valid email adress");
+      valid = false;
+    } else {
+      setEmailError("");
+    }
+
+    // Password validation
+    if (!password) {
+      setPasswordError("Password is required");
+      valid = false;
+    } else {
+      setPasswordError("");
+    }
+
+    return valid;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!validate()) return;
+
     try {
       const res = await fetch("http://localhost:4000/login", {
         method: "POST",
@@ -21,12 +53,9 @@ export default function LoginForm() {
       console.log("Backend response:", data);
 
       if (res.ok) {
-        // Decode token or get user info from backend response
         const user = data.user;
-        console.log("Saving user:", user);
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("token", data.token);
-
         window.dispatchEvent(new Event("storage"));
         router.push("/");
       } else {
@@ -48,8 +77,16 @@ export default function LoginForm() {
           placeholder="Your@email.domain"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full mb-4 p-2 border rounded"
+          className={`w-full mb-1 p-2 border rounded ${
+            emailError ? "border-red-500" : ""
+          }`}
         />
+        {emailError && (
+          <p className="flex items-center gap-1 text-red-600 text-sm mb-2">
+            <OctagonAlert className="w-4 h-4" />
+            {emailError}
+          </p>
+        )}
       </label>
 
       <label className="block mb-2">
@@ -59,17 +96,30 @@ export default function LoginForm() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 border rounded"
+          className={`w-full mb-1 p-2 border rounded ${
+            passwordError ? "border-red-500" : ""
+          }`}
         />
+        {passwordError && (
+          <p className="flex items-center gap-1 text-red-600 text-sm mb-2">
+            <OctagonAlert className="w-4 h-4" />
+            {passwordError}
+          </p>
+        )}
       </label>
+      {message && (
+        <p className="flex items-center gap-1 text-red-600 text-sm mb-2">
+          <OctagonAlert className="w-4 h-4" />
+          {message}
+        </p>
+      )}
+
       <button
         className="w-full bg-purple-400 text-white px-4 py-2 mt-2 rounded-lg shadow hover:bg-purple-900 transition"
         type="submit"
       >
         Log in
       </button>
-
-      {message && <p className="mt-3 text-center text-sm">{message}</p>}
     </form>
   );
 }

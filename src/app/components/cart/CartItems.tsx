@@ -3,7 +3,7 @@
 import { useCart } from "./CartContext";
 import { useRouter } from "next/navigation";
 import { FrownIcon, Plus, Minus, X, ArrowLeft } from "lucide-react";
-import ConfirmModal from "../confirmModal/DeleteConfirmModal";
+import ConfirmModal from "../deleteModal/DeleteConfirmModal";
 import { useState } from "react";
 
 const CartItems = () => {

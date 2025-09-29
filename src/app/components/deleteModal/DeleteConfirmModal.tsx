@@ -19,7 +19,7 @@ export default function ConfirmModal({
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-lg shadow-lg w-100 text-center">
-        <p className="mb-4 text-purple-900 font-medium">{message}</p>
+        <p className="mb-4 font-medium">{message}</p>
         <div className="flex justify-center gap-2">
           <button
             onClick={onConfirm}

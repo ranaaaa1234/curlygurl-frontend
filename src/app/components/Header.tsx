@@ -44,7 +44,7 @@ const Header: React.FC = () => {
   return (
     <header className="p-10 px-10 flex items-center justify-between border-b">
       <h1
-        className="text-4xl font-bold text-purple-400 cursor-pointer hover:text-purple-900"
+        className="text-4xl font-bold text-purple-400 cursor-pointer underline hover:text-purple-900"
         onClick={() => router.push("/")}
       >
         Curly Gurl

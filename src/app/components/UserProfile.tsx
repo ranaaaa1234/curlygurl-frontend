@@ -31,12 +31,12 @@ const UserProfile = () => {
           </div>
           <div className="flex flex-col mt-5 w-80 text-xl">
             <p className="font-semibold">Name:</p>
-            <p className="p-1 mb-4 w-full">{user.name}</p>
+            <p className="mb-4 w-full">{user.name}</p>
             <p className="font-semibold">Email:</p>
-            <p className="p-1 mb-4 w-full">{user.email}</p>
-            <div className="mt-4 text-xl text-red-600">
+            <p className=" mb-4 w-full">{user.email}</p>
+            <div className="flex mt-4 items-center text-xl text-red-600">
               <LogOutBtn className="font-semibold hover:underline" />
-              <LogOut className="inline w-6 h-6 ml-1" />
+              <LogOut className="w-6 h-6 ml-1" />
             </div>
           </div>
         </div>
