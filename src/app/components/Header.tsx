@@ -69,7 +69,7 @@ const Header: React.FC = () => {
           <Tooltip text="Log in or register">
             <button
               aria-label="User account"
-              onClick={() => router.push("/user")}
+              onClick={() => router.push("/loginRegister")}
               className="text-purple-400 hover:text-purple-900"
             >
               <User className="w-9 h-9" />

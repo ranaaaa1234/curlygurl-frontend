@@ -11,8 +11,10 @@ interface UserMenuProps {
 
 const UserMenu: React.FC<UserMenuProps> = ({ user, onLogout }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [pinned, setPinned] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  if (!user) return null;
 
   // Close dropdown if clicking outside
   useEffect(() => {
@@ -25,19 +27,29 @@ const UserMenu: React.FC<UserMenuProps> = ({ user, onLogout }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  if (!user) return null;
-
   return (
-    <div className="relative" ref={menuRef}>
+    <div
+      className="relative inline-block"
+      ref={menuRef}
+      onMouseEnter={() => {
+        if (!pinned) setIsOpen(true);
+      }}
+      onMouseLeave={() => {
+        if (!pinned) setIsOpen(false);
+      }}
+    >
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          setPinned((prev) => !prev);
+          setIsOpen(true);
+        }}
         className="text-purple-400 hover:text-purple-900 transition"
       >
         <UserCheck className="w-9 h-9" />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-40 bg-white border rounded-lg shadow-lg z-50">
+        <div className="absolute right-0  w-40 bg-white border rounded-lg shadow-lg z-50">
           <ul>
             <li>
               <button
