@@ -24,9 +24,10 @@ const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
-    fetch("http://localhost:4000/products")
+    fetch(`${API_URL}/login`)
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
