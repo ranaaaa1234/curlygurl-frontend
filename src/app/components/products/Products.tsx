@@ -52,7 +52,7 @@ const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
       {filtered.length === 0 && (
         <div className="flex flex-row gap-1 justify-center items-center ">
           <OctagonXIcon className="w-5 h-5 text-red-600" />
-          <p className="text-red-600 font-bold">product not found</p>
+          <p className="text-red-600 font-bold">Products not found</p>
         </div>
       )}
       {query && (

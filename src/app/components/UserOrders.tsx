@@ -66,7 +66,7 @@ export default function UserOrdersPage() {
               <strong>Order ID:</strong> {order.id}
             </p>
             <p>
-              <strong>Date:</strong> {order.date}
+              <strong>Order was placed:</strong> {order.date}
             </p>
 
             <table className="w-full border-collapse border border-gray-300 mt-2">
