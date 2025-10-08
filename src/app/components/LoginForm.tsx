@@ -10,6 +10,7 @@ export default function LoginForm() {
   const [passwordError, setPasswordError] = useState("");
   const [message, setMessage] = useState("");
   const router = useRouter();
+  
 
   const validate = () => {
     let valid = true;
@@ -38,12 +39,13 @@ export default function LoginForm() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
     e.preventDefault();
 
     if (!validate()) return;
 
     try {
-      const res = await fetch("http://localhost:4000/login", {
+      const res = await fetch(`${API_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -82,10 +84,7 @@ export default function LoginForm() {
           }`}
         />
         {emailError && (
-          <p className="flex items-center gap-1 text-red-600 text-sm mb-2">
-            <OctagonAlert className="w-4 h-4" />
-            {emailError}
-          </p>
+          <p className="flex items-center gap-1 text-red-600 text-sm mb-2"><OctagonAlert className="w-4 h-4" />{emailError}</p>
         )}
       </label>
 
@@ -101,17 +100,11 @@ export default function LoginForm() {
           }`}
         />
         {passwordError && (
-          <p className="flex items-center gap-1 text-red-600 text-sm mb-2">
-            <OctagonAlert className="w-4 h-4" />
-            {passwordError}
-          </p>
+          <p className="flex items-center gap-1 text-red-600 text-sm mb-2"><OctagonAlert className="w-4 h-4" />{passwordError}</p>
         )}
       </label>
       {message && (
-        <p className="flex items-center gap-1 text-red-600 text-sm mb-2">
-          <OctagonAlert className="w-4 h-4" />
-          {message}
-        </p>
+        <p className="flex items-center gap-1 text-red-600 text-sm mb-2"><OctagonAlert className="w-4 h-4" />{message}</p>
       )}
 
       <button

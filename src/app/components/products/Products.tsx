@@ -27,7 +27,7 @@ const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
-    fetch(`${API_URL}/login`)
+    fetch(`${API_URL}/products`)
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);

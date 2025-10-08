@@ -22,9 +22,10 @@ export default function UserOrdersPage() {
 
   const fetchOrders = () => {
     const token = localStorage.getItem("token")?.trim();
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
     if (!token) return;
 
-    fetch("http://localhost:4000/user-orders", {
+    fetch(`${API_URL}/user-orders`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

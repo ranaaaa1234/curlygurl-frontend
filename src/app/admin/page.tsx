@@ -19,9 +19,10 @@ interface Order {
 const AdminOrders = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
-    fetch("http://localhost:4000/admin/orders")
+    fetch(`${API_URL}/orders`)
       .then((res) => res.json())
       .then((data) => {
         setOrders(data);

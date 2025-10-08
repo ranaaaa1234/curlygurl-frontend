@@ -16,8 +16,9 @@ const CartItems = () => {
 
   const handleOrder = async () => {
     const token = localStorage.getItem("token")?.trim();
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-    const res = await fetch("http://localhost:4000/orders", {
+    const res = await fetch(`${API_URL}/orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

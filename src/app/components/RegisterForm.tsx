@@ -47,12 +47,14 @@ export default function RegisterForm() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
     e.preventDefault();
 
     if (!validate()) return;
 
     try {
-      const res = await fetch("http://localhost:4000/register", {
+      const res = await fetch(`${API_URL}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
@@ -62,8 +64,8 @@ export default function RegisterForm() {
 
       if (res.ok) {
         setMessage("User registered successfully, you can now log in!");
-        setSuccess(true); 
-        setName(""); 
+        setSuccess(true);
+        setName("");
         setEmail("");
         setPassword("");
       } else {
