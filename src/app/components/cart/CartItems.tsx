@@ -9,52 +9,53 @@ import { useState } from "react";
 const CartItems = () => {
   const { cart, removeFromCart, clearCart, updateQuantity } = useCart();
   const router = useRouter();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [itemToDelete, setItemToDelete] = useState<string | null>(null);
+  const [modalState, setModalState] = useState<{ isOpen: boolean; itemId: string | null }>({
+    isOpen: false,
+    itemId: null,
+  });
 
   const total = cart.reduce((sum, p) => sum + p.price * p.quantity, 0);
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   const handleOrder = async () => {
+    if (!API_URL) return alert("API URL not set");
+
     const token = localStorage.getItem("token")?.trim();
-    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+    try {
+      const res = await fetch(`${API_URL}/orders`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({ items: cart }),
+      });
+      const data = await res.json();
+      console.log("Backend response:", data);
 
-    const res = await fetch(`${API_URL}/orders`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      },
-      body: JSON.stringify({ items: cart }),
-    });
-
-    const data = await res.json();
-    console.log("Backend response:", data);
-
-    if (res.ok) {
-      clearCart();
-      router.push("/confirmation");
-    } else {
+      if (res.ok) {
+        clearCart();
+        router.push("/confirmation");
+      } else {
+        alert("Order failed");
+      }
+    } catch (err) {
+      console.error("Order error:", err);
       alert("Order failed");
     }
   };
 
-  const handleDeleteClick = (id: string) => {
-    setItemToDelete(id);
-    setIsModalOpen(true);
-  };
+  const openModal = (id: string) => setModalState({ isOpen: true, itemId: id });
+  const closeModal = () => setModalState({ isOpen: false, itemId: null });
 
   const confirmDelete = () => {
-    if (itemToDelete) {
-      removeFromCart(itemToDelete);
-    }
-    setIsModalOpen(false);
-    setItemToDelete(null);
+    if (modalState.itemId) removeFromCart(modalState.itemId);
+    closeModal();
   };
 
   const updateQuantityConfirm = (id: string, quantity: number) => {
-    if (quantity === 0) {
-      setItemToDelete(id);
-      setIsModalOpen(true);
+    if (quantity <= 0) {
+      openModal(id);
     } else {
       updateQuantity(id, quantity);
     }
@@ -68,9 +69,7 @@ const CartItems = () => {
         <div className="flex flex-col border p-4 rounded-lg text-center bg-purple-50">
           <div className="flex justify-center items-center gap-2 mb-3">
             <FrownIcon className="w-6 h-6 text-red-600" />
-            <p className="text-red-600 font-semibold">
-              Oh no, your cart is empty
-            </p>
+            <p className="text-red-600 font-semibold">Oh no, your cart is empty</p>
           </div>
           <button
             className="flex flex-row gap-1 items-center justify-center font-bold text-purple-400 hover:text-purple-900"
@@ -89,6 +88,7 @@ const CartItems = () => {
             <ArrowLeft className="w-5 h-5" />
             Continue shopping
           </button>
+
           <ul className="space-y-4">
             {cart.map((item) => (
               <li
@@ -97,51 +97,36 @@ const CartItems = () => {
               >
                 <div className="flex items-center gap-4">
                   <img
+                    src={`${API_URL}${item.image}`}
                     alt={item.name}
                     className="w-12 h-12 object-cover rounded"
                   />
                   <div>
                     <p className="font-bold text-purple-900">{item.name}</p>
-                    <p className="font-semibold text-sm text-gray-500">
-                      {item.size}
-                    </p>
-                    <p className="font-bold text-sm text-purple-400">
-                      {item.price} kr
-                    </p>
+                    <p className="font-semibold text-sm text-gray-500">{item.size}</p>
+                    <p className="font-bold text-sm text-purple-400">{item.price} kr</p>
                   </div>
                 </div>
 
                 <div className="flex flex-col items-end gap-3">
                   <button
-                    onClick={() => handleDeleteClick(item.id)}
+                    onClick={() => openModal(item.id)}
                     className="text-red-600 hover:text-red-800"
                   >
                     <X className="w-5 h-5" />
                   </button>
-                  <ConfirmModal
-                    isOpen={isModalOpen}
-                    onConfirm={confirmDelete}
-                    onCancel={() => setIsModalOpen(false)}
-                    message="Are you sure you want to remove this item?"
-                  />
 
                   <div className="flex border rounded">
                     <button
                       className="px-2 py-1 text-purple-600 hover:bg-purple-100"
-                      onClick={() =>
-                        updateQuantityConfirm(item.id, item.quantity - 1)
-                      }
+                      onClick={() => updateQuantityConfirm(item.id, item.quantity - 1)}
                     >
                       <Minus className="w-5 h-5" />
                     </button>
-                    <span className="flex w-8 justify-center items-center">
-                      {item.quantity}
-                    </span>
+                    <span className="flex w-8 justify-center items-center">{item.quantity}</span>
                     <button
                       className="px-2 py-1 text-purple-600 hover:bg-purple-100"
-                      onClick={() =>
-                        updateQuantityConfirm(item.id, item.quantity + 1)
-                      }
+                      onClick={() => updateQuantityConfirm(item.id, item.quantity + 1)}
                     >
                       <Plus className="w-5 h-5" />
                     </button>
@@ -151,10 +136,15 @@ const CartItems = () => {
             ))}
           </ul>
 
+          <ConfirmModal
+            isOpen={modalState.isOpen}
+            onConfirm={confirmDelete}
+            onCancel={closeModal}
+            message="Are you sure you want to remove this item?"
+          />
+
           <div className="mt-6 text-right">
-            <p className="text-xl font-semibold text-purple-400">
-              Total: {total} kr
-            </p>
+            <p className="text-xl font-semibold text-purple-400">Total: {total} kr</p>
             <button
               onClick={handleOrder}
               className="mt-4 bg-purple-400 text-white px-4 py-2 rounded-lg shadow hover:bg-purple-900 transition"
