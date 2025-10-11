@@ -73,7 +73,6 @@ const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
             className="border border-purple-50 rounded p-4 shadow hover:shadow-lg transition hover:border-purple-900"
           >
             <img
-              src={`http://localhost:4000${product.image}`}
               alt={product.name}
               className="w-full h-48 object-cover rounded mb-6 mx-auto"
             />
