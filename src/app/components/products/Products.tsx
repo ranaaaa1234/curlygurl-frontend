@@ -34,20 +34,14 @@ const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
       return;
     }
 
-    fetch(`${API_URL}/products`)
+     fetch(`${API_URL}/products`)
       .then((res) => res.json())
       .then((data) => {
-        if (Array.isArray(data)) {
-          setProducts(data);
-        } else {
-          console.error("Invalid data from backend:", data);
-          setError("Failed to load products");
-        }
+        setProducts(data);
         setLoading(false);
       })
       .catch((err) => {
         console.error("Failed to load products:", err);
-        setError("Failed to load products");
         setLoading(false);
       });
   }, [API_URL]);
@@ -91,7 +85,7 @@ const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
             className="border border-purple-50 rounded p-4 shadow hover:shadow-lg transition hover:border-purple-900"
           >
             <img
-              src={`${API_URL}${product.image}`} // <-- använder API_URL istället för localhost
+              src={`${API_URL}${product.image}`} 
               alt={product.name}
               className="w-full h-48 object-cover rounded mb-6 mx-auto"
             />
