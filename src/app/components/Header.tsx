@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ShoppingCart, User } from "lucide-react";
+import { ShoppingCart, User, Heart } from "lucide-react";
 import Tooltip from "./Tooltip";
 import { useCart } from "../components/cart/CartContext";
 import UserMenu from "./UserMenu";
@@ -53,8 +53,7 @@ const Header: React.FC = () => {
       <div className="flex items-center gap-6 relative">
         {user ? (
           <div className="flex items-center gap-10">
-            <UserMenu user={user} onLogout={() => setUser(null)}
-            />
+            <UserMenu user={user} onLogout={() => setUser(null)} />
           </div>
         ) : (
           <Tooltip text="Log in or register">
@@ -67,6 +66,15 @@ const Header: React.FC = () => {
             </button>
           </Tooltip>
         )}
+        <Tooltip text="View your favorites">
+          <button
+            aria-label="View favorites"
+            onClick={() => router.push("/favorites")}
+            className="text-purple-400 hover:text-purple-900"
+          >
+            <Heart className="w-9 h-9" />
+          </button>
+        </Tooltip>
         <Tooltip text="View your cart">
           <button
             aria-label="View cart"

@@ -7,6 +7,7 @@ import { CartProvider } from "./components/cart/CartContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import "./globals.css";
+import { FavoProvider } from "./components/favorites/FavoContext";
 
 export default function RootLayout({
   children,
@@ -17,8 +18,10 @@ export default function RootLayout({
     <html lang="en">
       <body className="flex flex-col min-h-screen">
         <CartProvider>
+          <FavoProvider>
         <Header />
           <main className="flex-grow">{children}</main>
+          </FavoProvider>
         </CartProvider>
         <Footer />
       </body>
