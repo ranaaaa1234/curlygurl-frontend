@@ -20,12 +20,17 @@ export default function ConfirmationPage() {
         </div>
       </div>
 
-      <div className="flex justify-center mt-5"> 
-      <Link href="/">
-        <h1 className="text-xl underline font-bold text-purple-400 cursor-pointer hover:text-purple-900">
-          Curly Gurl
-        </h1>
-      </Link>
+      <div className="flex flex-col items-center justify-center mt-5 gap-3">
+        <Link href="/">
+          <h1 className="text-xl underline font-semibold text-purple-400 cursor-pointer hover:text-purple-900">
+            Curly Gurl
+          </h1>
+        </Link>
+        <Link href="/userPage">
+          <h1 className="text-xl underline font-semibold text-purple-400 cursor-pointer hover:text-purple-900">
+            My profile
+          </h1>
+        </Link>
       </div>
     </main>
   );
