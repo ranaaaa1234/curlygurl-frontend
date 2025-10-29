@@ -52,7 +52,7 @@ const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
       : products
     : [];
 
-  if (loading) return <p>Loading products...</p>;
+  if (loading) return <p className="text-center text-gray-600 p-10">Loading products...</p>;
   if (error) return <p className="text-red-600">{error}</p>;
 
   return (

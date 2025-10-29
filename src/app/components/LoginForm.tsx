@@ -10,7 +10,6 @@ export default function LoginForm() {
   const [passwordError, setPasswordError] = useState("");
   const [message, setMessage] = useState("");
   const router = useRouter();
-  
 
   const validate = () => {
     let valid = true;
@@ -84,7 +83,10 @@ export default function LoginForm() {
           }`}
         />
         {emailError && (
-          <p className="flex items-center gap-1 text-red-600 text-sm mb-2"><OctagonAlert className="w-4 h-4" />{emailError}</p>
+          <p className="flex items-center gap-1 text-red-600 text-sm mb-2">
+            <OctagonAlert className="w-4 h-4" />
+            {emailError}
+          </p>
         )}
       </label>
 
@@ -100,11 +102,17 @@ export default function LoginForm() {
           }`}
         />
         {passwordError && (
-          <p className="flex items-center gap-1 text-red-600 text-sm mb-2"><OctagonAlert className="w-4 h-4" />{passwordError}</p>
+          <p className="flex items-center gap-1 text-red-600 text-sm mb-2">
+            <OctagonAlert className="w-4 h-4" />
+            {passwordError}
+          </p>
         )}
       </label>
       {message && (
-        <p className="flex items-center gap-1 text-red-600 text-sm mb-2"><OctagonAlert className="w-4 h-4" />{message}</p>
+        <p className="flex items-center gap-1 text-red-600 text-sm mb-2">
+          <OctagonAlert className="w-4 h-4" />
+          {message}
+        </p>
       )}
 
       <button
