@@ -2,9 +2,10 @@
 
 import { useFavo } from "./FavoContext";
 import { useRouter } from "next/navigation";
-import { X, ArrowLeft, ShoppingCart, HeartOff } from "lucide-react";
+import { X, ArrowLeft, HeartOff } from "lucide-react";
 import ConfirmModal from "../deleteModal/DeleteConfirmModal";
 import { useState } from "react";
+import { useCart } from "../cart/CartContext";
 
 const FavoItems = () => {
   const { favo, removeFromFavo, clearFavo } = useFavo();
@@ -21,6 +22,7 @@ const FavoItems = () => {
 
   const openModal = (id: string) => setModalState({ isOpen: true, itemId: id });
   const closeModal = () => setModalState({ isOpen: false, itemId: null });
+  const { addToCart } = useCart();
 
   const confirmDelete = () => {
     if (modalState.itemId) removeFromFavo(modalState.itemId);
@@ -29,7 +31,9 @@ const FavoItems = () => {
 
   return (
     <section className="max-w-2xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-3 text-purple-900">Your favorite products</h2>
+      <h2 className="text-2xl font-bold mb-3 text-purple-900">
+        Your favorite products
+      </h2>
 
       {favo.length === 0 ? (
         <div className="flex flex-col border p-4 rounded-lg text-center bg-purple-50">
@@ -88,8 +92,12 @@ const FavoItems = () => {
                     <X className="w-5 h-5" />
                   </button>
 
-                    <button className="px-2 py-1 underline font-semibold text-purple-400 hover:text-purple-900 flex items-center gap-1">
-                        Add to cart</button>
+                  <button
+                    className="px-2 py-1 underline font-semibold text-purple-400 hover:text-purple-900 flex items-center gap-1"
+                    onClick={() => addToCart({ ...item, quantity: 1 })}
+                  >
+                    Add to cart
+                  </button>
                 </div>
               </li>
             ))}
