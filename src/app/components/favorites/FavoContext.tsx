@@ -6,6 +6,7 @@ import React, {
   useState,
   ReactNode,
   useEffect,
+  use,
 } from "react";
 import { getFavorites, addToFavorites, removeFromFavorites } from "./favoApi";
 
@@ -70,6 +71,23 @@ export const FavoProvider = ({ children }: { children: ReactNode }) => {
       console.error("Error removing from favorites:", err);
     }
   };
+
+  useEffect(() => {
+    const handleStorage = () => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            getFavorites(token)
+                .then((data) => setFavo(data))
+                .catch((err) => console.error("Error fetching favorites:", err));
+        } else {
+            setFavo([]);
+        }
+    }; 
+
+    handleStorage();
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
+}, []);
 
   const clearFavo = () => setFavo([]);
 

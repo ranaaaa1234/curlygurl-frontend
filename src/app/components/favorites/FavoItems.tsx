@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { X, ArrowLeft, ShoppingCart, HeartOff } from "lucide-react";
 import ConfirmModal from "../deleteModal/DeleteConfirmModal";
 import { useState } from "react";
-import Tooltip from "../Tooltip";
 
 const FavoItems = () => {
   const { favo, removeFromFavo, clearFavo } = useFavo();
@@ -30,7 +29,7 @@ const FavoItems = () => {
 
   return (
     <section className="max-w-2xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-3 text-purple-900">Your Cart</h2>
+      <h2 className="text-2xl font-bold mb-3 text-purple-900">Your favorite products</h2>
 
       {favo.length === 0 ? (
         <div className="flex flex-col border p-4 rounded-lg text-center bg-purple-50">

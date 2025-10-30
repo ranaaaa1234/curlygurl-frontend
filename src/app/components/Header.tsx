@@ -21,7 +21,6 @@ const Header: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [favo, setFavo] = useState<any[]>([]);
 
-
   useEffect(() => {
     const total = cart.reduce((sum, item) => sum + item.quantity, 0);
     setTotalItems(total);
@@ -36,9 +35,9 @@ const Header: React.FC = () => {
   // Listen for storage changes (e.g., login/logout in another tab)
   useEffect(() => {
     const handleStorage = () => {
-      const newToken = localStorage.getItem("token");
-      if (newToken) {
-        getFavorites(newToken)
+      const token = localStorage.getItem("token");
+      if (token) {
+        getFavorites(token)
           .then((data) => setFavo(data))
           .catch((err) => console.error("Error fetching favorites:", err));
       } else {
@@ -61,8 +60,17 @@ const Header: React.FC = () => {
 
       <div className="flex items-center gap-6 relative">
         {user ? (
-          <div className="flex items-center gap-10">
+          <div className="flex items-center gap-6">
             <UserMenu user={user} onLogout={() => setUser(null)} />
+            <Tooltip text="View your favorites">
+              <button
+                aria-label="View favorites"
+                onClick={() => router.push("/favorites")}
+                className="text-purple-400 hover:text-purple-900"
+              >
+                <Heart className="w-9 h-9" />
+              </button>
+            </Tooltip>
           </div>
         ) : (
           <Tooltip text="Log in or register">
@@ -75,15 +83,7 @@ const Header: React.FC = () => {
             </button>
           </Tooltip>
         )}
-        <Tooltip text="View your favorites">
-          <button
-            aria-label="View favorites"
-            onClick={() => router.push("/favorites")}
-            className="text-purple-400 hover:text-purple-900"
-          >
-            <Heart className="w-9 h-9" />
-          </button>
-        </Tooltip>
+
         <Tooltip text="View your cart">
           <button
             aria-label="View cart"
