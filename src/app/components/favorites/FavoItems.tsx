@@ -36,7 +36,7 @@ const FavoItems = () => {
       </h2>
 
       {favo.length === 0 ? (
-        <div className="flex flex-col border p-4 rounded-lg text-center bg-purple-50">
+        <div className="flex flex-col border p-4 rounded text-center bg-purple-50">
           <div className="flex justify-center items-center gap-2 mb-3">
             <HeartOff className="w-6 h-6 text-red-600" />
             <p className="text-red-600 font-semibold">
@@ -65,7 +65,7 @@ const FavoItems = () => {
             {favo.map((item) => (
               <li
                 key={item.id}
-                className="flex items-center justify-between border rounded-lg p-4 bg-white shadow-sm hover:border-purple-900"
+                className="flex items-center justify-between border rounded p-4 bg-white shadow-sm hover:border-purple-900"
               >
                 <div className="flex items-center gap-4">
                   <img

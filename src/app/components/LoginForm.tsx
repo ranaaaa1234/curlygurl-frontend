@@ -119,7 +119,7 @@ export default function LoginForm() {
       )}
 
       <button
-        className="w-full bg-purple-400 text-white px-4 py-2 mt-2 rounded-lg shadow hover:bg-purple-900 transition"
+        className="w-full bg-purple-400 text-white px-4 py-2 mt-2 rounded shadow hover:bg-purple-900 transition"
         type="submit"
         disabled={loading}
       >

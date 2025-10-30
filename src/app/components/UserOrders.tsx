@@ -42,7 +42,7 @@ export default function UserOrdersPage() {
       <h1 className="text-3xl font-bold text-purple-900 mb-6">My orders</h1>
 
       {orders.length === 0 ? (
-         <div className="flex flex-col border p-4 rounded-lg text-center bg-purple-50">
+         <div className="flex flex-col border p-4 rounded text-center bg-purple-50">
           <div className="flex justify-center items-center gap-2 mb-3">
             <FrownIcon className="w-6 h-6 text-red-600" />
             <p className="text-red-600 font-semibold">
