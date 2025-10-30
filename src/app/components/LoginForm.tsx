@@ -10,6 +10,7 @@ export default function LoginForm() {
   const [passwordError, setPasswordError] = useState("");
   const [message, setMessage] = useState("");
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const validate = () => {
     let valid = true;
@@ -38,10 +39,12 @@ export default function LoginForm() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL;
     e.preventDefault();
 
     if (!validate()) return;
+
+    setLoading(true);
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     try {
       const res = await fetch(`${API_URL}/login`, {
@@ -118,8 +121,9 @@ export default function LoginForm() {
       <button
         className="w-full bg-purple-400 text-white px-4 py-2 mt-2 rounded-lg shadow hover:bg-purple-900 transition"
         type="submit"
+        disabled={loading}
       >
-        Log in
+        {loading ? "Logging in..." : "Log in"}
       </button>
     </form>
   );

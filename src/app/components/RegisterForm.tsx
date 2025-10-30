@@ -11,6 +11,7 @@ export default function RegisterForm() {
   const [passwordError, setPasswordError] = useState("");
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const validate = () => {
     let valid = true;
@@ -47,11 +48,13 @@ export default function RegisterForm() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     e.preventDefault();
 
     if (!validate()) return;
+
+    setLoading(true);
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     try {
       const res = await fetch(`${API_URL}/register`, {
@@ -80,6 +83,8 @@ export default function RegisterForm() {
       console.error("Registration error:", error);
       setSuccess(false);
       setMessage("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -155,8 +160,9 @@ export default function RegisterForm() {
       <button
         className="w-full bg-purple-400 text-white px-4 py-2 mt-2 rounded-lg shadow hover:bg-purple-900 transition"
         type="submit"
+        disabled={loading}
       >
-        Register
+        {loading ? "Registering..." : "Register"}
       </button>
     </form>
   );

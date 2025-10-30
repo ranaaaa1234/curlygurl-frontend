@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LogOut, User } from "lucide-react";
 import LogOutBtn from "./LogOutBtn";
+import DeleteAccountBtn from "./DeleteAccount";
 
 interface User {
   id: number;
@@ -26,13 +27,15 @@ const UserProfile = () => {
       <h1 className="text-3xl font-bold text-purple-900 mb-6">My profile</h1>
       {user && (
         <div className="flex flex-row p-4 border rounded shadow">
-          <div>
+          <div className="flex flex-col items-center">
             <User className="w-60 h-60 text-purple-400" />
+            <DeleteAccountBtn />
           </div>
+
           <div className="flex flex-col mt-5 w-80 text-xl">
-            <p className="font-semibold">Name:</p>
+            <p className="font-semibold text-purple-400">Name:</p>
             <p className="mb-4 w-full">{user.name}</p>
-            <p className="font-semibold">Email:</p>
+            <p className="font-semibold text-purple-400">Email:</p>
             <p className=" mb-4 w-full">{user.email}</p>
             <div className="flex mt-4 items-center text-xl text-red-600">
               <LogOutBtn className="font-semibold hover:underline" />
