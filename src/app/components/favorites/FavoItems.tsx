@@ -2,7 +2,7 @@
 
 import { useFavo } from "./FavoContext";
 import { useRouter } from "next/navigation";
-import { FrownIcon, X, ArrowLeft, ShoppingCart } from "lucide-react";
+import { X, ArrowLeft, ShoppingCart, HeartOff } from "lucide-react";
 import ConfirmModal from "../deleteModal/DeleteConfirmModal";
 import { useState } from "react";
 import Tooltip from "../Tooltip";
@@ -35,7 +35,7 @@ const FavoItems = () => {
       {favo.length === 0 ? (
         <div className="flex flex-col border p-4 rounded-lg text-center bg-purple-50">
           <div className="flex justify-center items-center gap-2 mb-3">
-            <FrownIcon className="w-6 h-6 text-red-600" />
+            <HeartOff className="w-6 h-6 text-red-600" />
             <p className="text-red-600 font-semibold">
               You have no favorite items yet
             </p>
@@ -55,7 +55,7 @@ const FavoItems = () => {
             onClick={() => router.push("/")}
           >
             <ArrowLeft className="w-5 h-5" />
-            Continue shopping
+            Explore more products
           </button>
 
           <ul className="space-y-4">
@@ -89,11 +89,8 @@ const FavoItems = () => {
                     <X className="w-5 h-5" />
                   </button>
 
-                  <Tooltip text="Add to cart">
-                    <button className="px-2 py-1">
-                      <ShoppingCart className="w-6 h-6 text-purple-400  hover:text-purple-900" />
-                    </button>
-                  </Tooltip>
+                    <button className="px-2 py-1 underline font-semibold text-purple-400 hover:text-purple-900 flex items-center gap-1">
+                        Add to cart</button>
                 </div>
               </li>
             ))}
