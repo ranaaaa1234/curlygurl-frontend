@@ -1,6 +1,13 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
+import { getFavorites, addToFavorites, removeFromFavorites } from "./favoApi";
 
 interface Product {
   id: string;
@@ -21,25 +28,55 @@ const FavoContext = createContext<FavoContextProps | undefined>(undefined);
 
 export const FavoProvider = ({ children }: { children: ReactNode }) => {
   const [favo, setFavo] = useState<Product[]>([]);
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
-  const addToFavo = (product: Product) => {
-    setFavo((prev) => {
-      const existing = prev.find((p) => p.id === product.id);
-      if (existing) {
-        return prev;
-      }
-      return [...prev, product];
-    });
+  useEffect(() => {
+    if (!token) return;
+
+    getFavorites(token)
+      .then((data) => setFavo(data))
+      .catch((err) => console.error("Error fetching favorites:", err));
+  }, [token]);
+
+  const addToFavo = async (product: Product) => {
+    if (!token) {
+      console.warn("No token found");
+      return;
+    }
+
+    try {
+      setFavo((prev) => {
+        const alreadyAdded = prev.some((item) => item.id === product.id);
+        if (alreadyAdded) return prev;
+        return [...prev, product];
+      });
+
+      await addToFavorites(product.id, token);
+    } catch (err) {
+      console.error("Error adding to favorites:", err);
+    }
   };
 
-  const removeFromFavo = (id: string) => {
-    setFavo((prev) => prev.filter((p) => p.id !== id));
+  const removeFromFavo = async (id: string) => {
+    if (!token) {
+      console.warn("No token found");
+      return;
+    }
+    try {
+      await removeFromFavorites(id, token);
+      setFavo((prev) => prev.filter((item) => item.id !== id));
+    } catch (err) {
+      console.error("Error removing from favorites:", err);
+    }
   };
 
   const clearFavo = () => setFavo([]);
 
   return (
-    <FavoContext.Provider value={{ favo, addToFavo, removeFromFavo, clearFavo }}>
+    <FavoContext.Provider
+      value={{ favo, addToFavo, removeFromFavo, clearFavo }}
+    >
       {children}
     </FavoContext.Provider>
   );

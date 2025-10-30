@@ -6,6 +6,7 @@ import { ShoppingCart, User, Heart } from "lucide-react";
 import Tooltip from "./Tooltip";
 import { useCart } from "../components/cart/CartContext";
 import UserMenu from "./UserMenu";
+import { getFavorites } from "./favorites/favoApi";
 
 interface User {
   id: number;
@@ -18,6 +19,8 @@ const Header: React.FC = () => {
   const { cart } = useCart();
   const [totalItems, setTotalItems] = useState(0);
   const [user, setUser] = useState<User | null>(null);
+  const [favo, setFavo] = useState<any[]>([]);
+
 
   useEffect(() => {
     const total = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -33,8 +36,14 @@ const Header: React.FC = () => {
   // Listen for storage changes (e.g., login/logout in another tab)
   useEffect(() => {
     const handleStorage = () => {
-      const storedUser = localStorage.getItem("user");
-      setUser(storedUser ? JSON.parse(storedUser) : null);
+      const newToken = localStorage.getItem("token");
+      if (newToken) {
+        getFavorites(newToken)
+          .then((data) => setFavo(data))
+          .catch((err) => console.error("Error fetching favorites:", err));
+      } else {
+        setFavo([]);
+      }
     };
 
     window.addEventListener("storage", handleStorage);

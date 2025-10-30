@@ -55,7 +55,7 @@ export default function LoginForm() {
 
       if (res.ok) {
         const user = data.user;
-        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("user", JSON.stringify(data.user));
         localStorage.setItem("token", data.token);
         window.dispatchEvent(new Event("storage"));
         router.push("/");
