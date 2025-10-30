@@ -30,6 +30,15 @@ const Header: React.FC = () => {
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) setUser(JSON.parse(storedUser));
+
+    window.addEventListener("storage", () => {
+      const updatedUser = localStorage.getItem("user");
+      if (updatedUser) {
+        setUser(JSON.parse(updatedUser));
+      } else {
+        setUser(null);
+      }
+    });
   }, []);
 
   // Listen for storage changes (e.g., login/logout in another tab)

@@ -29,11 +29,11 @@ const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const { addToCart } = useCart();
-  const { favo, addToFavo, removeFromFavo } = useFavo(); // ✅ always call hook
+  const { favo, addToFavo, removeFromFavo } = useFavo();
   const router = useRouter();
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-  // Fetch products
+  //Fetch products
   useEffect(() => {
     if (!API_URL) {
       setError("API URL not set");
@@ -53,7 +53,7 @@ const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
       });
   }, [API_URL]);
 
-  // Track login state
+  //Track login state
   useEffect(() => {
     const checkLogin = () => {
       const token = localStorage.getItem("token");
@@ -67,7 +67,7 @@ const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
 
   const handleToggleFavo = (product: Product) => {
     if (!isLoggedIn) {
-      router.push("/login");
+      router.push("/loginRegister");
       return;
     }
 
@@ -143,15 +143,17 @@ const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
                         ? isFavorited
                           ? "Already favorited"
                           : "Add to favorites"
-                        : "Login to save favorites"
+                        : "Log in to save favorites"
                     }
                   >
                     <button onClick={() => handleToggleFavo(product)}>
                       <Heart
                         className={`w-6 h-6 ${
-                          isFavorited && isLoggedIn
-                            ? "text-purple-900"
-                            : "text-purple-400 hover:text-purple-900"
+                          isLoggedIn
+                            ? isFavorited
+                              ? "text-purple-900"
+                              : "text-purple-400 hover:text-purple-900"
+                            : "text-gray-300 hover:text-gray-500"
                         }`}
                       />
                     </button>

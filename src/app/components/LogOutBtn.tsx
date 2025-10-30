@@ -13,7 +13,7 @@ const LogOutBtn = ({className, children}: LogOutBtnProps) => {
   const handleLogout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-    router.push("/");
+    router.push("/ProductsPage");
     window.location.reload();
   };
   return (
