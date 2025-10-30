@@ -10,8 +10,7 @@ export default function ConfirmationPage() {
             Order placed successfully!
           </h1>
           <p className="mt-4 text-purple-900">
-            Thank you for your purchase. We are processing your order and will
-            update you shortly.
+            Thank you for your purchase. You can find your order in your profile.
           </p>
           <p className="mt-1 flex gap-1 items-center justify-center text-purple-900">
             <Package className="w-5 h-5 text-purple-400" />
