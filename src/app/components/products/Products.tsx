@@ -92,7 +92,7 @@ const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
 
   return (
     <section className="max-w-5xl p-10 mx-auto px-4">
-      <h2 className="text-4xl mb-10 text-center text-purple-900 font-semibold">
+      <h2 className="xs:text-3xl md:text-4xl xs:mb-5 mb:mb-10 text-center text-purple-900 font-semibold">
         Explore our products
       </h2>
 
@@ -104,13 +104,15 @@ const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
       )}
 
       {query && (
+        <div className="xs:flex xs:justify-center md:justify-start"> 
         <button
           onClick={onClearQuery}
-          className="mb-6 flex items-center gap-1 text-purple-400 font-bold hover:text-purple-900"
+          className="xs:mt-5 mb-6 flex items-center gap-1 text-purple-400 font-bold hover:text-purple-900"
         >
           <ArrowLeft className="w-5 h-5" />
           View all products
         </button>
+        </div>
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
