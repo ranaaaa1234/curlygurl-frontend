@@ -75,7 +75,7 @@ const Header: React.FC = () => {
         Curly Gurl
       </h1>
 
-      <div className="flex items-center gap-6">
+      <div className="flex md:flex-row-reverse items-center gap-6">
         <Tooltip text="View your cart">
           <button
             aria-label="View cart"
