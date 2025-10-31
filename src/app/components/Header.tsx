@@ -36,7 +36,6 @@ const Header: React.FC = () => {
     setTotalItems(total);
   }, [cart]);
 
-  // Load user from localStorage
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) setUser(JSON.parse(storedUser));
@@ -51,7 +50,6 @@ const Header: React.FC = () => {
     });
   }, []);
 
-  // Listen for storage changes (e.g., login/logout in another tab)
   useEffect(() => {
     const handleStorage = () => {
       const token = localStorage.getItem("token");
@@ -77,33 +75,7 @@ const Header: React.FC = () => {
         Curly Gurl
       </h1>
 
-      {/* Desktop layout */}
-      <div className="hidden md:flex items-center gap-6 relative">
-        {user ? (
-          <div className="flex items-center gap-6">
-            <UserMenu user={user} onLogout={() => setUser(null)} />
-            <Tooltip text="View your favorites">
-              <button
-                aria-label="View favorites"
-                onClick={() => router.push("/favorites")}
-                className="text-purple-400 hover:text-purple-900"
-              >
-                <Heart className="w-9 h-9" />
-              </button>
-            </Tooltip>
-          </div>
-        ) : (
-          <Tooltip text="Log in or register">
-            <button
-              aria-label="User account"
-              onClick={() => router.push("/loginRegister")}
-              className="text-purple-400 hover:text-purple-900"
-            >
-              <User className="w-9 h-9" />
-            </button>
-          </Tooltip>
-        )}
-
+      <div className="flex items-center gap-6">
         <Tooltip text="View your cart">
           <button
             aria-label="View cart"
@@ -111,22 +83,49 @@ const Header: React.FC = () => {
             className="text-purple-400 hover:text-purple-900 relative"
           >
             {totalItems > 0 && (
-              <span className="absolute left-5 bottom-6 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+              <span className="absolute left-6 bottom-5 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
                 {totalItems}
               </span>
             )}
             <ShoppingCart className="w-9 h-9" />
           </button>
         </Tooltip>
-      </div>
 
-      {/* Mobile hamburger button */}
-      <button
-        className="md:hidden text-purple-400 hover:text-purple-900 transition"
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-      >
-        {isMenuOpen ? <X className="w-9 h-9" /> : <Menu className="w-9 h-9" />}
-      </button>
+        <div className="hidden md:flex items-center gap-6 relative">
+          {user ? (
+            <div className="flex items-center gap-6">
+              <UserMenu user={user} onLogout={() => setUser(null)} />
+              <Tooltip text="View your favorites">
+                <button
+                  aria-label="View favorites"
+                  onClick={() => router.push("/favorites")}
+                  className="text-purple-400 hover:text-purple-900"
+                >
+                  <Heart className="w-9 h-9" />
+                </button>
+              </Tooltip>
+            </div>
+          ) : (
+            <Tooltip text="Log in or register">
+              <button
+                aria-label="User account"
+                onClick={() => router.push("/loginRegister")}
+                className="text-purple-400 hover:text-purple-900"
+              >
+                <User className="w-9 h-9" />
+              </button>
+            </Tooltip>
+          )}
+        </div>
+
+        {/* Mobile hamburger button */}
+        <button
+          className="md:hidden text-purple-400 hover:text-purple-900 transition"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          {isMenuOpen ? <X className="w-9 h-9" /> : <Menu className="w-9 h-9" />}
+        </button>
+      </div>
 
       {/* Mobile dropdown menu */}
       {isMenuOpen && (
@@ -153,22 +152,6 @@ const Header: React.FC = () => {
               >
                 Favorites
                 <Heart className="w-5 h-5" />
-              </button>
-
-              <button
-                onClick={() => {
-                  router.push("/cart");
-                  setIsMenuOpen(false);
-                }}
-                className="w-full flex justify-center items-center gap-2 py-2 text-purple-900 font-semibold hover:bg-purple-50"
-              >
-                Cart
-                <ShoppingCart className="w-5 h-5" />
-                {totalItems > 0 && (
-                  <span className="ml-1 bg-red-600 text-white rounded-full px-2 text-xs">
-                    {totalItems}
-                  </span>
-                )}
               </button>
 
               <div className="border-t w-full mt-2 pt-2">
