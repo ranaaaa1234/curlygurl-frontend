@@ -104,7 +104,7 @@ const Products: React.FC<ProductsProps> = ({ query, onClearQuery }) => {
       )}
 
       {query && (
-        <div className="xs:flex xs:justify-center md:justify-start"> 
+        <div className="flex justify-start"> 
         <button
           onClick={onClearQuery}
           className="xs:mt-5 mb-6 flex items-center gap-1 text-purple-400 font-bold hover:text-purple-900"
