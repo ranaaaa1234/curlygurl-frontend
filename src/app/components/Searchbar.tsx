@@ -23,7 +23,7 @@ const Searchbar: React.FC<SearchbarProps> = ({ onSearch }) => {
 
   return (
     <div className="flex items-center bg-purple-50 justify-center flex-col p-10 shadow-lg">
-      <h2 className="text-4xl mb-10 text-purple-900 font-semibold">
+      <h2 className="xs:text-3xl md:text-4xl text-center mb-10 text-purple-900 font-semibold">
         What are you looking for today?
       </h2>
       <form onSubmit={handleSubmit} className="flex items-center gap-4">
