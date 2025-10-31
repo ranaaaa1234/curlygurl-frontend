@@ -66,7 +66,7 @@ const CartItems = () => {
 
   return (
     <section className="max-w-2xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-3 text-purple-900">Your Cart</h2>
+      <h2 className="text-2xl font-bold mb-3 text-purple-900">Your cart</h2>
 
       {cart.length === 0 ? (
         <div className="flex flex-col border p-4 rounded text-center bg-purple-50">
