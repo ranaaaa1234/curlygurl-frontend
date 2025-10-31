@@ -5,7 +5,7 @@ export default function ConfirmationPage() {
   return (
     <main>
       <div className="mt-10 flex justify-center">
-        <div className="p-4 text-center md:border rounded bg-purple-50">
+        <div className="p-4 text-center sm:border rounded bg-purple-50">
           <h1 className="text-purple-900 xs:text-2xl md:text-3xl font-semibold">
             Order placed successfully!
           </h1>
