@@ -38,8 +38,8 @@ export default function UserOrdersPage() {
   }, []);
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-purple-900 mb-6">My orders</h1>
+    <div className="max-w-2xl mx-auto xs:p-2 md:p-6">
+      <h1 className="text-3xl font-bold text-purple-900 mb-6 xs:text-center md:text-left">My orders</h1>
 
       {orders.length === 0 ? (
          <div className="flex flex-col border p-4 rounded text-center bg-purple-50">
