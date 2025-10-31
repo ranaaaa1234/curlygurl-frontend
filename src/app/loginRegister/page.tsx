@@ -42,7 +42,7 @@ export default function UserPage() {
       </div>
 
       {/* Form */}
-      <div className="mt-8 w-96 p-6 bg-white rounded shadow">
+      <div className="sm:mt-8 mb-8 w-96 p-6 bg-white sm:rounded sm:shadow">
         {view === "login" ? <LoginForm /> : <RegisterForm />}
       </div>
     </div>
